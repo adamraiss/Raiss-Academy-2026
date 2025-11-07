@@ -1,12 +1,329 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Baccalaureate Study Site</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Raiss Academy</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Amiri&display=swap" rel="stylesheet">
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+<style>
+/* ----------------------------- */
+/* Variables for Dark/Light Mode */
+:root {
+  --bg: #f5f7fa;
+  --primary: #007BFF;
+  --gray: #e9ecef;
+  --text: #333;
+}
+
+body.dark {
+  --bg: #1e1e2f;
+  --primary: #3399ff;
+  --gray: #2c2c3c;
+  --text: #eee;
+}
+
+* { box-sizing: border-box; margin:0; padding:0; font-family:'Poppins', sans-serif; }
+
+body { background: var(--bg); color: var(--text); transition: all 0.3s; }
+
+header {
+  background: var(--primary);
+  color: white;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header nav a {
+  color: white;
+  text-decoration: none;
+  margin-left: 1rem;
+  font-weight: 600;
+}
+
+header nav a:hover { text-decoration: underline; }
+
+.dark-toggle {
+  cursor:pointer;
+  font-size: 1.2rem;
+}
+
+.hero {
+  background: linear-gradient(to right, #007BFF, #00c6ff);
+  color: white;
+  text-align: center;
+  padding: 6rem 2rem;
+  border-radius: 12px;
+  margin: 2rem;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  transition: transform 0.5s ease;
+}
+
+.hero:hover { transform: scale(1.02); }
+
+.hero h1 { font-size:2.5rem; margin-bottom:1rem; }
+.hero p { font-size:1.2rem; margin-bottom:2rem; }
+.hero button {
+  padding: 0.8rem 2rem;
+  border:none;
+  border-radius: 8px;
+  background:white;
+  color:var(--primary);
+  font-weight:bold;
+  cursor:pointer;
+  transition: 0.3s;
+}
+.hero button:hover { background:#f0f0f0; }
+
+.container { padding:2rem; }
+
+.subjects-grid {
+  display:grid;
+  grid-template-columns: repeat(auto-fit,minmax(200px,1fr));
+  gap:1.5rem;
+}
+
+.subject-card {
+  background:white;
+  border-radius: 15px;
+  box-shadow:0 5px 15px rgba(0,0,0,0.1);
+  text-align:center;
+  padding:2rem 1rem;
+  cursor:pointer;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.subject-card i { margin-bottom:1rem; color:var(--primary);}
+.subject-card:hover {
+  transform: translateY(-5px);
+  box-shadow:0 10px 25px rgba(0,0,0,0.2);
+}
+
+h2,h3,h4 { margin-bottom:1rem; }
+p { margin-bottom:1rem; line-height:1.5; }
+
+footer { text-align:center; padding:2rem; background:var(--gray); margin-top:2rem; }
+footer a { margin:0 0.5rem; text-decoration:none; color:var(--primary); }
+footer a:hover { text-decoration:underline; }
+
+.card { background:var(--gray); border-radius:12px; padding:2rem; box-shadow:0 5px 15px rgba(0,0,0,0.1); margin-bottom:2rem; }
+
+button.favorite { background: var(--primary); color:white; border:none; padding:0.5rem 1rem; border-radius:8px; cursor:pointer; transition:0.3s; }
+button.favorite.active { background:orange; }
+
+.search-bar { margin-bottom:1.5rem; display:flex; gap:0.5rem; }
+.search-bar input { flex:1; padding:0.5rem 1rem; border-radius:8px; border:1px solid #ccc; }
+
+.video-container { margin-bottom:1rem; }
+.video-container video { width:100%; border-radius:12px; }
+
+.exams-grid { display:grid; grid-template-columns: repeat(auto-fit,minmax(150px,1fr)); gap:1rem; }
+
+.exams-grid button { padding:0.6rem 1rem; border:none; border-radius:8px; cursor:pointer; background:var(--primary); color:white; transition:0.3s; }
+.exams-grid button:hover { background:#0056b3; }
+
+.arabic { font-family:'Amiri', serif; text-align:right; }
+
+.lesson-list { list-style:none; padding:0; }
+.lesson-item { background:white; border-radius:10px; padding:1rem; margin:0.5rem 0; box-shadow:0 2px 5px rgba(0,0,0,0.1); display:flex; justify-content:space-between; align-items:center; }
+
+.download-btn { background:#28a745; color:white; border:none; padding:0.5rem 1rem; border-radius:5px; cursor:pointer; }
+
+.favorite-btn { background:#ffc107; color:white; border:none; padding:0.5rem; border-radius:50%; cursor:pointer; margin-left:0.5rem; }
+.favorite-btn.active { background:#ff5722; }
+
+.exam-details { display:none; }
+.exam-details.show { display:block; }
+
+.sidebar {
+  position:fixed; left:-250px; top:0; width:250px; height:100%; background:white; box-shadow:0 0 10px rgba(0,0,0,0.1); transition:left 0.3s; padding:2rem; z-index:1000;
+}
+.sidebar.open { left:0; }
+.sidebar-toggle { cursor:pointer; font-size:1.5rem; margin-right:1rem; }
+
+@media(max-width:768px){ .hero h1{font-size:2rem;} .hero p{font-size:1rem;} }
+</style>
 </head>
 <body>
-    <h1>Welcome to My Baccalaureate Study Platform!</h1>
-    <p>This is a test page. Your full site will be here soon.</p>
-</body>
-</html>
+<div class="sidebar" id="sidebar">
+  <h3>Navigation</h3>
+  <ul>
+    <li><a href="#" onclick="showPage('home')">Home</a></li>
+    <li><a href="#" onclick="showPage('first')">1st Bac</a></li>
+    <li><a href="#" onclick="showPage('second')">2nd Bac</a></li>
+    <li><a href="#" onclick="showPage('exams')">Exams</a></li>
+    <li><a href="#" onclick="showPage('about')">About</a></li>
+  </ul>
+  <h3>Content Types</h3>
+  <ul>
+    <li><a href="#" onclick="filterContent('lessons')">Lessons</a></li>
+    <li><a href="#" onclick="filterContent('exercises')">Exercises</a></li>
+    <li><a href="#" onclick="filterContent('exams')">Exams</a></li>
+    <li><a href="#" onclick="filterContent('regional')">Regional Exams</a></li>
+    <li><a href="#" onclick="filterContent('national')">National Exams</a></li>
+  </ul>
+</div>
+
+<header>
+  <div class="logo"><h2>Raiss Academy</h2></div>
+  <nav>
+    <span class="sidebar-toggle" onclick="toggleSidebar()"><i class="fas fa-bars"></i></span>
+    <a href="#" onclick="showPage('home')">Home</a>
+    <a href="#" onclick="showPage('first')">1st Bac</a>
+    <a href="#" onclick="showPage('second')">2nd Bac</a>
+    <a href="#" onclick="showPage('exams')">Exams</a>
+    <a href="#" onclick="showPage('about')">About</a>
+    <span class="dark-toggle" onclick="toggleDarkMode()"><i class="fas fa-moon"></i></span>
+  </nav>
+</header>
+
+<div id="home" class="container">
+  <div class="hero">
+    <h1>Succeed in Your Moroccan Baccalaureate</h1>
+    <p>Learn Smart, Achieve More – All Lessons, Exercises & Exams in One Place!</p>
+    <button onclick="showPage('first')">Start 1st Bac</button>
+    <button onclick="showPage('second')">Start 2nd Bac</button>
+  </div>
+</div>
+
+<div id="first" class="container" style="display:none;">
+  <h2>1st Baccalaureate Subjects</h2>
+  <div class="search-bar">
+    <input type="text" placeholder="Global search lessons, exercises, exams..." onkeyup="globalSearch()">
+  </div>
+  <div class="subjects-grid">
+    <div class="subject-card" onclick="showLessons('mth1')"><i class="fas fa-calculator fa-3x"></i><h4>Mathematics</h4><p>Lessons, exercises, exams</p></div>
+    <div class="subject-card" onclick="showLessons('pc1')"><i class="fas fa-atom fa-3x"></i><h4>Physics & Chemistry</h4></div>
+    <div class="subject-card" onclick="showLessons('svt1')"><i class="fas fa-leaf fa-3x"></i><h4>Life & Earth Sciences</h4></div>
+    <div class="subject-card" onclick="showLessons('fran1')"><i class="fas fa-book fa-3x"></i><h4>French</h4></div>
+    <div class="subject-card arabic" onclick="showLessons('arab1')"><i class="fas fa-book-open fa-3x"></i><h4>Arabic</h4></div>
+    <div class="subject-card" onclick="showLessons('eng1')"><i class="fas fa-language fa-3x"></i><h4>English</h4></div>
+    <div class="subject-card" onclick="showLessons('phil1')"><i class="fas fa-brain fa-3x"></i><h4>Philosophy</h4></div>
+    <div class="subject-card" onclick="showLessons('social1')"><i class="fas fa-globe fa-3x"></i><h4>History & Geography</h4></div>
+    <div class="subject-card" onclick="showLessons('islam1')"><i class="fas fa-mosque fa-3x"></i><h4>Islamic Education</h4></div>
+  </div>
+  <div id="lessons-first" style="display:none;">
+    <h3>Lessons for Selected Subject</h3>
+    <ul class="lesson-list">
+      <li class="lesson-item">
+        <div><strong>Lesson 1: Introduction</strong><p>Short description.</p></div>
+        <div><button class="download-btn" onclick="downloadPDF('lesson1.pdf')">Download</button><button class="favorite-btn" onclick="toggleFavorite(this)">★</button></div>
+      </li>
+      <li class="lesson-item">
+        <div><strong>Exercise 1</strong><p>Practice exercises.</p></div>
+        <div><button class="download-btn" onclick="downloadPDF('exercise1.pdf')">Download</button><button class="favorite-btn" onclick="toggleFavorite(this)">★</button></div>
+      </li>
+      <li class="lesson-item">
+        <div><strong>Exam 1</strong><p>Sample exam.</p></div>
+        <div><button class="download-btn" onclick="downloadPDF('exam1.pdf')">Download</button><button class="favorite-btn" onclick="toggleFavorite(this)">★</button></div>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div id="second" class="container" style="display:none;">
+  <h2>2nd Baccalaureate Subjects</h2>
+  <div class="search-bar">
+    <input type="text" placeholder="Global search lessons, exercises, exams..." onkeyup="globalSearch()">
+  </div>
+  <div class="subjects-grid">
+    <div class="subject-card" onclick="showLessons('mth2')"><i class="fas fa-calculator fa-3x"></i><h4>Mathematics</h4></div>
+    <div class="subject-card" onclick="showLessons('pc2')"><i class="fas fa-atom fa-3x"></i><h4>Physics & Chemistry</h4></div>
+    <div class="subject-card" onclick="showLessons('svt2')"><i class="fas fa-leaf fa-3x"></i><h4>Life & Earth Sciences</h4></div>
+    <div class="subject-card" onclick="showLessons('fran2')"><i class="fas fa-book fa-3x"></i><h4>French</h4></div>
+    <div class="subject-card arabic" onclick="showLessons('arab2')"><i class="fas fa-book-open fa-3x"></i><h4>Arabic</h4></div>
+    <div class="subject-card" onclick="showLessons('eng2')"><i class="fas fa-language fa-3x"></i><h4>English</h4></div>
+    <div class="subject-card" onclick="showLessons('phil2')"><i class="fas fa-brain fa-3x"></i><h4>Philosophy</h4></div>
+    <div class="subject-card" onclick="showLessons('social2')"><i class="fas fa-globe fa-3x"></i><h4>History & Geography</h4></div>
+    <div class="subject-card" onclick="showLessons('islam2')"><i class="fas fa-mosque fa-3x"></i><h4>Islamic Education</h4></div>
+  </div>
+  <div id="lessons-second" style="display:none;">
+    <h3>Lessons for Selected Subject</h3>
+    <ul class="lesson-list">
+      <li class="lesson-item">
+        <div><strong>Lesson 1: Introduction</strong><p>Short description.</p></div>
+        <div><button class="download-btn" onclick="downloadPDF('lesson1.pdf')">Download</button><button class="favorite-btn" onclick="toggleFavorite(this)">★</button></div>
+      </li>
+      <!-- Add more as needed -->
+    </ul>
+  </div>
+</div>
+
+<div id="exams" class="container" style="display:none;">
+  <h2>Exams 2017–2025</h2>
+  <div class="exams-grid">
+    <button onclick="showExamYear(2017)">2017</button>
+    <button onclick="showExamYear(2018)">2018</button>
+    <button onclick="showExamYear(2019)">2019</button>
+    <button onclick="showExamYear(2020)">2020</button>
+    <button onclick="showExamYear(2021)">2021</button>
+    <button onclick="showExamYear(2022)">2022</button>
+    <button onclick="showExamYear(2023)">2023</button>
+    <button onclick="showExamYear(2024)">2024</button>
+    <button onclick="showExamYear(2025)">2025</button>
+  </div>
+  <div id="exam-details" class="exam-details">
+    <h3>Exams for Selected Year</h3>
+    <ul class="lesson-list">
+      <li class="lesson-item">
+        <div><strong>Regional Exam 1</strong><p>Description.</p></div>
+        <div><button class="download-btn" onclick="downloadPDF('regional1.pdf')">Download</button><button class="favorite-btn" onclick="toggleFavorite(this)">★</button></div>
+      </li>
+      <li class="lesson-item">
+        <div><strong>National Exam 1</strong><p>Description.</p></div>
+        <div><button class="download-btn" onclick="downloadPDF('national1.pdf')">Download</button><button class="favorite-btn" onclick="toggleFavorite(this)">★</button></div>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div id="about" class="container" style="display:none;">
+  <div class="card">
+    <h2>About Raiss Academy</h2>
+    <img src="https://via.placeholder.com/300x200?text=Team+Photo" alt="Team" style="width:100%; border-radius:10px; margin-bottom:1rem;">
+    <div class="video-container">
+      <video controls>
+        <source src="https://via.placeholder.com/video.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+    <h3>Mission</h3>
+    <p>To provide accessible, high-quality educational resources to Moroccan students for all Bac subjects.</p>
+    <h3>Philosophy</h3>
+    <p>“Education should not be memorization, but understanding.” Raiss Academy promotes active learning, motivation, and clarity in all subjects.</p>
+    <h3>Vision</h3>
+    <p>A future where every Moroccan student excels and achieves academic success confidently.</p>
+  </div>
+</div>
+
+<footer>
+  <p>&copy; 2025 Raiss Academy</p>
+  <a href="#">Facebook</a>
+  <a href="#">Twitter</a>
+  <a href="#">Instagram</a>
+</footer>
+
+<script>
+// Page navigation
+function showPage(id){
+  const pages = ['home','first','second','exams','about'];
+  pages.forEach(p=>document.getElementById(p).style.display='none');
+  document.getElementById(id).style.display='block';
+  // Hide lessons when switching pages
+  document.getElementById('lessons-first').style.display='none';
+  document.getElementById('lessons-second').style.display='none';
+  document.getElementById('exam-details').classList.remove('show');
+}
+
+// Show lessons for subject
+function showLessons(subject){
+  const level = subject.includes('1') ? 'first' : 'second';
+  document.getElementById('lessons-' + level).style.display='block';
+  // Populate lessons dynamically if needed
+}
+
+// Download PDF (placeholder)
+function downloadPDF(filename){
+  alert(`Downloading ${filename}`);
